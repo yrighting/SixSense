@@ -1,6 +1,7 @@
 package data.entity.salespost
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface SalesPostDao {
@@ -9,7 +10,7 @@ interface SalesPostDao {
     fun insert(salesPost: SalesPost)
 
     @Query("SELECT * FROM sales_posts ORDER BY timestamp DESC")
-    fun getAllPosts(): List<SalesPost>
+    fun getAllSalesPosts(): Flow<List<SalesPost>>
 
     @Query("SELECT * FROM sales_posts WHERE restaurantId = :restaurantId")
     fun getPostsByRestaurant(restaurantId: Int): List<SalesPost>
@@ -19,4 +20,5 @@ interface SalesPostDao {
 
     @Delete
     fun delete(salesPost: SalesPost)
+
 }

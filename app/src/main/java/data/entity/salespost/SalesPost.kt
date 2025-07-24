@@ -9,5 +9,6 @@ data class SalesPost(
     val restaurantId: Int,
     val aliasId: String,
     val content: String,
-    val timestamp: Long
+    val timestamp: Long,
+    var likeCount: Int = 0
 )
