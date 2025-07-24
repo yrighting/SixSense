@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 사용자가 참여한 파티 리스트 화면 -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,7 +9,6 @@
         android:id="@+id/spinnerFilter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:entries="@array/party_filters"
         android:layout_margin="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView

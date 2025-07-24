@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 파티 생성 화면 레이아웃 -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -9,38 +10,37 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <!-- 파티 이름 입력 필드 -->
         <EditText
-            android:id="@+id/editPartyTitle"
+            android:id="@+id/inputPartyName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="모임명" />
 
+        <!-- 시간 이름 입력 필드 -->
         <EditText
-            android:id="@+id/editPartyDate"
+            android:id="@+id/inputPartyTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="일시 (예: 2025-08-01 18:00)" />
 
+        <!-- 장소 입력 필드 -->
         <EditText
-            android:id="@+id/editPartyLocation"
+            android:id="@+id/inputPartyLocation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="장소" />
 
+        <!-- 설명 입력 필드 -->
         <EditText
-            android:id="@+id/editPartyDescription"
+            android:id="@+id/inputPartyDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="모임 설명" />
 
-        <EditText
-            android:id="@+id/editChatUrl"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="연결용 링크 (예: 단톡방 URL)" />
-
+        <!-- 등록 버튼 -->
         <Button
-            android:id="@+id/btnSubmitParty"
+            android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="등록하기"
