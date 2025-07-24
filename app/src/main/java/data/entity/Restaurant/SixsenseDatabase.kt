@@ -6,15 +6,20 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sixsense.app.data.entity.*
 import com.sixsense.app.data.dao.*
 import kotlinx.coroutines.*
+import data.entity.salespost.SalesPost
+import data.entity.salespost.SalesPostDao
+
 
 @Database(
-    entities = [Restaurant::class, Review::class, Tag::class, RestaurantTagCrossRef::class],
+    entities = [Restaurant::class, Review::class, Tag::class, RestaurantTagCrossRef::class, SalesPost::class],
     version = 1
 )
 abstract class SixsenseDatabase : RoomDatabase() {
 
     abstract fun restaurantDao(): RestaurantDao
     abstract fun reviewDao(): ReviewDao
+    abstract fun salesPostDao(): SalesPostDao
+
 
     companion object {
         @Volatile private var INSTANCE: SixsenseDatabase? = null
@@ -128,3 +133,4 @@ data class TagWithRestaurants(
     )
     val restaurants: List<Restaurant>
 )
+
