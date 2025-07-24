@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="party_filters">
+        <item>전체</item>
+        <item>참여한 모임</item>
+        <item>개설한 모임</item>
+        <item>지난 모임</item>
+    </string-array>
+</resources>
