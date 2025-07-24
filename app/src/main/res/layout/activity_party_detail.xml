@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvPartyTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="모임 제목"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvPartyInfo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="날짜, 장소, 주최자 등" />
+
+        <TextView
+            android:id="@+id/tvPartyDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="모임 설명" />
+
+        <Button
+            android:id="@+id/btnJoinParty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="참여하기"
+            android:layout_marginTop="24dp" />
+
+        <Button
+            android:id="@+id/btnGoToChat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="채팅방 바로가기"
+            android:layout_marginTop="12dp" />
+
+    </LinearLayout>
+</ScrollView>
