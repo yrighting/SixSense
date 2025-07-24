@@ -13,6 +13,7 @@ class SignIn : AppCompatActivity() {
         setContentView(R.layout.activity_sign_in)
 
         val loginButton = findViewById<Button>(R.id.loginbutton)
+        var str_id: String = edtId.text.toString()
 
         loginButton.setOnClickListener{
             val id = findViewById<EditText>(R.id.idEditText).text.toString()
@@ -20,6 +21,7 @@ class SignIn : AppCompatActivity() {
 
             if(id.isNotEmpty()){
                 val intent = Intent(this, MainActivity::class.java)
+                intent.putExtra("userId", str_id)
                 startActivity(intent)
                 finish()
             }else{

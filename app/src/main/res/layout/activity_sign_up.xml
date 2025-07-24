@@ -22,46 +22,44 @@
             android:padding="24dp">
 
             <EditText
-                android:id="@+id/editTextName"
+                android:id="@+id/edtName"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:hint="이름" />
 
             <EditText
-                android:id="@+id/editTextBirth"
+                android:id="@+id/edtBirth"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:hint="생년월일 (YYYY-MM-DD)"
                 android:inputType="date" />
 
-            <!-- 아이디 + 중복확인 버튼 -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <EditText
-                    android:id="@+id/editTextUsername"
+                    android:id="@+id/edtId"
                     android:layout_width="0dp"
                     android:layout_height="70dp"
                     android:layout_weight="2"
                     android:hint="아이디" />
 
                 <Button
-                    android:id="@+id/btnCheckUsername"
-                    android:layout_width="0dp"
+                    android:id="@+id/btnIdCheck"
+                    android:layout_width="13dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="중복확인" />
             </LinearLayout>
 
-            <!-- 비밀번호 + 눈 아이콘 -->
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <EditText
-                    android:id="@+id/editTextPassword"
+                    android:id="@+id/edtPw"
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:hint="비밀번호"
@@ -69,32 +67,9 @@
                     android:paddingEnd="48dp" />
 
                 <ImageButton
-                    android:id="@+id/btnTogglePassword"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@android:color/transparent"
-                    android:src="@drawable/ic_eye_closed" />
-            </RelativeLayout>
-
-            <!-- 비밀번호 확인 + 눈 아이콘 -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <EditText
-                    android:id="@+id/editTextPasswordConfirm"
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:hint="비밀번호 확인"
-                    android:inputType="textPassword"
-                    android:paddingEnd="48dp" />
-
-                <ImageButton
-                    android:id="@+id/btnTogglePasswordConfirm"
-                    android:layout_width="59dp"
-                    android:layout_height="59dp"
+                    android:id="@+id/btnPwCheck"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginTop="0dp"
@@ -102,29 +77,44 @@
                     android:background="@android:color/transparent"
                     android:contentDescription="비밀번호 보기 전환 버튼"
                     android:src="@drawable/baseline_remove_red_eye_24" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edtPwConfirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:hint="비밀번호 확인"
+                    android:inputType="textPassword"
+                    android:paddingEnd="48dp" />
+
             </RelativeLayout>
 
             <EditText
-                android:id="@+id/editTextSchool"
+                android:id="@+id/edtSchool"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:hint="학교" />
 
             <EditText
-                android:id="@+id/editTextMajor"
+                android:id="@+id/edtMajor"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:hint="전공" />
 
             <EditText
-                android:id="@+id/editTextStudentId"
+                android:id="@+id/edtSchNum"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:hint="학번"
                 android:inputType="number" />
 
             <Button
-                android:id="@+id/buttonRegister"
+                android:id="@+id/btnRegist"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
