@@ -16,7 +16,7 @@ class SaleInfo : AppCompatActivity() {
         val txtTime = findViewById<TextView>(R.id.txtTime)
         val txtContent = findViewById<TextView>(R.id.txtContent)
         val txtLikeCount = findViewById<TextView>(R.id.txtLikeCount)
-        val imgPhoto = findViewById<ImageView>(R.id.imgPhoto)
+        //val imgPhoto = findViewById<ImageView>(R.id.imgPhoto)
 
         // 인텐트로부터 데이터 받기
         val restaurantName = intent.getStringExtra("restaurantName")

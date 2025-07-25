@@ -11,14 +11,13 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class SalesPostAdapter(
-    private val items: MutableList<SalesPost>,  // 좋아요 수 업데이트 위해 List → MutableList
-    private val onLikeClicked: (SalesPost) -> Unit  // 좋아요 눌렀을 때 DB 반영용 콜백
+    val items: MutableList<SalesPost>,  // 좋아요 수 업데이트 위해 List → MutableList
 ) : RecyclerView.Adapter<SalesPostAdapter.SalesPostViewHolder>() {
 
     class SalesPostViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textRestaurant: TextView = itemView.findViewById(R.id.text_item_restaurant)
         val textWriter: TextView = itemView.findViewById(R.id.text_item_writer)
-        val textContent: TextView = itemView.findViewById(R.id.text_item_content)
+        val title: TextView = itemView.findViewById(R.id.text_item_title)
         val textTime: TextView = itemView.findViewById(R.id.text_item_time)
         val textLikeCount: TextView = itemView.findViewById(R.id.text_like_count)
         val imageLike: ImageView = itemView.findViewById(R.id.image_like)
@@ -35,7 +34,7 @@ class SalesPostAdapter(
 
         holder.textWriter.text = post.aliasId
         holder.textRestaurant.text = getRestaurantName(post.restaurantId)
-        holder.textContent.text = post.content
+        holder.title.text = post.title
         holder.textTime.text = formatTimestamp(post.timestamp)
 
         holder.textLikeCount.text = post.likeCount.toString()  // 좋아요 수 표시
@@ -54,7 +53,7 @@ class SalesPostAdapter(
         return sdf.format(Date(timestamp))
     }
 
-    private fun getRestaurantName(restaurantId: Int): String {
-        return "맛집 #$restaurantId"
+    private fun getRestaurantName(restaurantId: String): String {
+        return restaurantId
     }
 }
