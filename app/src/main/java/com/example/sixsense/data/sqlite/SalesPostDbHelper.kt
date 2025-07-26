@@ -43,7 +43,8 @@ class SalesPostDbHelper(context: Context) : SQLiteOpenHelper(
                 $COLUMN_CONTENT TEXT,
                 $COLUMN_TIMESTAMP INTEGER,
                 $COLUMN_LIKE_COUNT INTEGER DEFAULT 0,
-                $COLUMN_IMAGE_RES_ID INTEGER
+                $COLUMN_IMAGE_RES_ID INTEGER,
+                imageUri Text
             )"""
 
         private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS $TABLE_NAME"

@@ -3,6 +3,7 @@ package data.entity.salespost
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.util.Log
 import com.example.sixsense.data.sqlite.SalesPostDbHelper
 
 class SalesPostDaoHelper(private val context: Context) {
@@ -19,6 +20,7 @@ class SalesPostDaoHelper(private val context: Context) {
             put("timestamp", post.timestamp)
             put("likeCount", post.likeCount)
             put("imageResId", post.imageResId)
+            put("imageUri", post.imageUri)
         }
         db.insert("sales_posts", null, values)
         db.close()
@@ -32,6 +34,14 @@ class SalesPostDaoHelper(private val context: Context) {
 
         if (cursor.moveToFirst()) {
             do {
+                val imageResIdIndex = cursor.getColumnIndex("imageResId")
+                val imageResId = if (!cursor.isNull(imageResIdIndex)) cursor.getInt(imageResIdIndex) else null
+
+                val imageUriIndex = cursor.getColumnIndex("imageUri")
+                val imageUri = if (!cursor.isNull(imageUriIndex)) cursor.getString(imageUriIndex) else null
+
+                Log.d("SaleInfo", "imageUri: $imageUri")
+
                 val post = SalesPost(
                     restaurantId = cursor.getString(cursor.getColumnIndexOrThrow("restaurantId")),
                     aliasId = cursor.getString(cursor.getColumnIndexOrThrow("aliasId")),
@@ -39,8 +49,8 @@ class SalesPostDaoHelper(private val context: Context) {
                     content = cursor.getString(cursor.getColumnIndexOrThrow("content")),
                     timestamp = cursor.getLong(cursor.getColumnIndexOrThrow("timestamp")),
                     likeCount = cursor.getInt(cursor.getColumnIndexOrThrow("likeCount")),
-                    imageResId = cursor.getInt(cursor.getColumnIndexOrThrow("imageResId"))
-
+                    imageResId = imageResId,
+                    imageUri = imageUri
                 )
                 posts.add(post)
             } while (cursor.moveToNext())

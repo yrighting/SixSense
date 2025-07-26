@@ -1,11 +1,13 @@
 package com.example.sixsense
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import data.entity.salespost.SalesPost
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,7 +23,6 @@ class SalesPostAdapter(
         val textTime: TextView = itemView.findViewById(R.id.text_item_time)
         val textLikeCount: TextView = itemView.findViewById(R.id.text_like_count)
         val imageLike: ImageView = itemView.findViewById(R.id.image_like)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SalesPostViewHolder {
@@ -39,6 +40,7 @@ class SalesPostAdapter(
         holder.textTime.text = formatTimestamp(post.timestamp)
         holder.textLikeCount.text = post.likeCount.toString()
 
+
         // 아이템 클릭 시 상세화면으로 이동
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
@@ -49,6 +51,9 @@ class SalesPostAdapter(
                 putExtra("content", post.content)
                 putExtra("likeCount", post.likeCount)
                 putExtra("imageResId", post.imageResId)
+                if (post.imageUri != null) {
+                    putExtra("imageUri", post.imageUri)
+                }
             }
             context.startActivity(intent)
         }

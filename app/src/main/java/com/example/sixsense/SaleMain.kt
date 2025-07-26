@@ -1,14 +1,19 @@
 package com.example.sixsense
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import data.entity.salespost.SalesPost
 import data.entity.salespost.SalesPostDaoHelper
 
@@ -48,29 +53,47 @@ class SaleMain : AppCompatActivity() {
 
         ),
         SalesPost(
-            restaurantId = "카페인중독 노원점",
+            restaurantId = "피자얌",
             aliasId = "익명4",
-            title = "생크림 와플 1+1 이벤트",
-            content = "아침 수업 전에 카페인중독 들렀는데 생크림 와플 1+1 행사 중이에요! 오전 11시 전까지라 아직 시간도 넉넉하니 와플 좋아하시는 분들 한번 가보세요~~ ",
-            timestamp = 1753433800000,
+            title = "반반피자 20% 할인 이벤트",
+            content = "피자얌 반반피자 지금 20% 할인 중이에요! 옵션 상관없고 세트도 할인돼서 저녁에 포장해왔는데 가성비 괜찮았어요ㅎㅎ 다음 주까지 한다고 하니까 근처에 계신 분들 한 번 드셔보세요~!  포장/매장 둘 다 할인된다고 합니다!",
+            timestamp = System.currentTimeMillis(),
             imageResId = R.drawable.sample4
 
         ),
         SalesPost(
-            restaurantId = "스쿨푸드 딜리버리 태릉입구점",
+            restaurantId = "카페인중독 노원점",
             aliasId = "익명5",
-            title = "떡볶이+마리 세트 20% 할인 이벤트",
-            content = "스쿨푸드 떡볶이+마리 세트 지금 20% 할인 중이에요. 배달로 시켜도 할인 적용돼서 오늘 저녁 부담 없이 해결했어요. 세트 좋아하는 분들 한 번 이용해보셔도 좋을 듯!",
-            timestamp = System.currentTimeMillis(),
+            title = "생크림 와플 1+1 이벤트",
+            content = "아침 수업 전에 카페인중독 들렀는데 생크림 와플 1+1 행사 중이에요! 오전 11시 전까지라 아직 시간도 넉넉하니 와플 좋아하시는 분들 한번 가보세요~~ ",
+            timestamp = 1753433800000,
             imageResId = R.drawable.sample5
 
         )
     )
+    private lateinit var writeLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sales_main)
 
+        writeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
+            if (result.resultCode == RESULT_OK) {
+                val newPosts = daoHelper.getAllSalesPosts()
+                adapter.items.clear()
+                adapter.items.addAll(newPosts)
+                adapter.notifyDataSetChanged()
+
+            }
+        }
+
+
+        val btnWritePost: FloatingActionButton = findViewById(R.id.btn_write_post)
+
+        btnWritePost.setOnClickListener {
+            val intent = Intent(this, SaleWriteActivity::class.java)
+            writeLauncher.launch(intent)
+        }
         recyclerView = findViewById(R.id.recycler_sales_posts)
         recyclerView.layoutManager = LinearLayoutManager(this)
 
