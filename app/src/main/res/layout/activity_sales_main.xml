@@ -24,7 +24,7 @@
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:hint="내용으로 검색"
+            android:hint="제목, 내용, 식당 이름 검색"
             android:inputType="text"
             android:autofillHints="username" />
 
@@ -35,6 +35,19 @@
             android:text="@string/search_button" />
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/text_empty_result"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="검색 결과 없음"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:textColor="#888888"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/search_bar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
 
 
     <!-- 세일글 리스트 -->

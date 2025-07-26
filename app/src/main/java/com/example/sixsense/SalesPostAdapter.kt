@@ -21,6 +21,7 @@ class SalesPostAdapter(
         val textTime: TextView = itemView.findViewById(R.id.text_item_time)
         val textLikeCount: TextView = itemView.findViewById(R.id.text_like_count)
         val imageLike: ImageView = itemView.findViewById(R.id.image_like)
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SalesPostViewHolder {
@@ -36,14 +37,21 @@ class SalesPostAdapter(
         holder.textRestaurant.text = getRestaurantName(post.restaurantId)
         holder.title.text = post.title
         holder.textTime.text = formatTimestamp(post.timestamp)
+        holder.textLikeCount.text = post.likeCount.toString()
 
-        holder.textLikeCount.text = post.likeCount.toString()  // 좋아요 수 표시
-
-        holder.imageLike.setOnClickListener {
-            post.likeCount += 1
-            holder.textLikeCount.text = post.likeCount.toString()
+        // 아이템 클릭 시 상세화면으로 이동
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val intent = android.content.Intent(context, com.example.sixsense.SaleInfo::class.java).apply {
+                putExtra("restaurantName", getRestaurantName(post.restaurantId))
+                putExtra("writerId", post.aliasId)
+                putExtra("time", formatTimestamp(post.timestamp))
+                putExtra("content", post.content)
+                putExtra("likeCount", post.likeCount)
+                putExtra("imageResId", post.imageResId)
+            }
+            context.startActivity(intent)
         }
-
     }
 
     override fun getItemCount(): Int = items.size

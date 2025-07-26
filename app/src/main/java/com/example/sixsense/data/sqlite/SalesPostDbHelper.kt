@@ -32,6 +32,7 @@ class SalesPostDbHelper(context: Context) : SQLiteOpenHelper(
         const val COLUMN_CONTENT = "content"
         const val COLUMN_TIMESTAMP = "timestamp"
         const val COLUMN_LIKE_COUNT = "likeCount"
+        const val COLUMN_IMAGE_RES_ID = "imageResId"
 
         private const val SQL_CREATE_ENTRIES =
             """CREATE TABLE $TABLE_NAME (
@@ -41,7 +42,8 @@ class SalesPostDbHelper(context: Context) : SQLiteOpenHelper(
                 $COLUMN_TITLE TEXT,
                 $COLUMN_CONTENT TEXT,
                 $COLUMN_TIMESTAMP INTEGER,
-                $COLUMN_LIKE_COUNT INTEGER DEFAULT 0
+                $COLUMN_LIKE_COUNT INTEGER DEFAULT 0,
+                $COLUMN_IMAGE_RES_ID INTEGER
             )"""
 
         private const val SQL_DELETE_ENTRIES = "DROP TABLE IF EXISTS $TABLE_NAME"

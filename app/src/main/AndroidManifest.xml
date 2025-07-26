@@ -16,9 +16,6 @@
             android:name=".SaleInfo"
             android:exported="false" />
         <activity
-            android:name="com.example.sixsense.party.CreateParty"
-            android:exported="false" />
-        <activity
             android:name=".SignUp"
             android:exported="false" />
         <activity

@@ -15,22 +15,35 @@ class SaleInfo : AppCompatActivity() {
         val txtWriter = findViewById<TextView>(R.id.txtWriter)
         val txtTime = findViewById<TextView>(R.id.txtTime)
         val txtContent = findViewById<TextView>(R.id.txtContent)
-        val txtLikeCount = findViewById<TextView>(R.id.txtLikeCount)
-        //val imgPhoto = findViewById<ImageView>(R.id.imgPhoto)
+        val imgPhoto = findViewById<ImageView>(R.id.imgPhoto)
+        val imageResId = intent.getIntExtra("imageResId", 0)
+        imgPhoto.setImageResource(imageResId)
+
 
         // 인텐트로부터 데이터 받기
         val restaurantName = intent.getStringExtra("restaurantName")
         val writerId = intent.getStringExtra("writerId")
         val time = intent.getStringExtra("time")
         val content = intent.getStringExtra("content")
-        val likeCount = intent.getIntExtra("likeCount", 0)
+        imgPhoto.setImageResource(imageResId)
 
         // 받아온 데이터 적용
         txtRestaurantName.text = restaurantName
         txtWriter.text = writerId
         txtTime.text = time
         txtContent.text = content
-        txtLikeCount.text = "좋아요: $likeCount"
+
+        val imageLike = findViewById<ImageView>(R.id.image_like)
+        val textLikeCount = findViewById<TextView>(R.id.text_like_count)
+
+        var currentLikeCount = intent.getIntExtra("likeCount", 0)
+        textLikeCount.text = "$currentLikeCount"
+
+        imageLike.setOnClickListener {
+            currentLikeCount += 1
+            textLikeCount.text = "$currentLikeCount"
+        }
+
 
 
     }

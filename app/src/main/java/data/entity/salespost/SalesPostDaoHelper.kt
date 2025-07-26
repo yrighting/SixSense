@@ -18,11 +18,11 @@ class SalesPostDaoHelper(private val context: Context) {
             put("content", post.content)
             put("timestamp", post.timestamp)
             put("likeCount", post.likeCount)
+            put("imageResId", post.imageResId)
         }
         db.insert("sales_posts", null, values)
         db.close()
     }
-
 
     // 전체 글 가져오기
     fun getAllSalesPosts(): List<SalesPost> {
@@ -33,13 +33,14 @@ class SalesPostDaoHelper(private val context: Context) {
         if (cursor.moveToFirst()) {
             do {
                 val post = SalesPost(
-                    postId = cursor.getInt(cursor.getColumnIndexOrThrow("postId")),
                     restaurantId = cursor.getString(cursor.getColumnIndexOrThrow("restaurantId")),
                     aliasId = cursor.getString(cursor.getColumnIndexOrThrow("aliasId")),
                     title = cursor.getString(cursor.getColumnIndexOrThrow("title")),
                     content = cursor.getString(cursor.getColumnIndexOrThrow("content")),
                     timestamp = cursor.getLong(cursor.getColumnIndexOrThrow("timestamp")),
-                    likeCount = cursor.getInt(cursor.getColumnIndexOrThrow("likeCount"))
+                    likeCount = cursor.getInt(cursor.getColumnIndexOrThrow("likeCount")),
+                    imageResId = cursor.getInt(cursor.getColumnIndexOrThrow("imageResId"))
+
                 )
                 posts.add(post)
             } while (cursor.moveToNext())

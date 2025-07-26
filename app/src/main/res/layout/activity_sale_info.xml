@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".SaleInfo">
 
     <LinearLayout
@@ -40,7 +41,7 @@
         <ImageView
             android:id="@+id/imgPhoto"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="300dp"
             android:scaleType="centerCrop"
             android:background="#CCCCCC"
             android:layout_marginBottom="12dp" />
@@ -53,12 +54,33 @@
             android:textSize="16sp"
             android:paddingBottom="12dp" />
 
-        <TextView
-            android:id="@+id/txtLikeCount"
+        <!-- 좋아요 영역 -->
+        <LinearLayout
+            android:id="@+id/like_section"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="좋아요: 0"
-            android:textSize="14sp" />
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="start">
+
+            <ImageView
+                android:id="@+id/image_like"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_heart"
+                android:contentDescription="좋아요"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/text_like_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="14sp"
+                android:layout_marginStart="4dp" />
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
+
