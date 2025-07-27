@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:padding="8dp">
 
-    <!-- 텍스트들 수직 정렬 -->
+    <!-- 텍스트 요소들 수직 정렬 -->
     <LinearLayout
         android:id="@+id/text_container"
         android:layout_width="0dp"
@@ -17,7 +17,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- 제목, 작성자, 식당명, 시간, 좋아요 아이콘들 넣기 -->
+        <!-- 세일글 제목 -->
         <TextView
             android:id="@+id/text_item_title"
             android:layout_width="wrap_content"
@@ -26,6 +26,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
+        <!-- 작성자 아이디 -->
         <TextView
             android:id="@+id/text_item_writer"
             android:layout_width="wrap_content"
@@ -35,6 +36,7 @@
             android:textColor="#888888"
             android:layout_marginTop="2dp" />
 
+        <!-- 맛집 이름 -->
         <TextView
             android:id="@+id/text_item_restaurant"
             android:layout_width="wrap_content"
@@ -45,6 +47,7 @@
             android:maxLines="2"
             android:ellipsize="end" />
 
+        <!-- 작성 시간 -->
         <TextView
             android:id="@+id/text_item_time"
             android:layout_width="wrap_content"
@@ -54,6 +57,7 @@
             android:textColor="#888888"
             android:layout_marginTop="4dp" />
 
+        <!-- 좋아요 영역: 하트 아이콘 + 좋아요 수 -->
         <LinearLayout
             android:id="@+id/like_section"
             android:layout_width="wrap_content"
@@ -61,6 +65,7 @@
             android:orientation="horizontal"
             android:layout_marginTop="8dp">
 
+            <!-- 좋아요 하트 아이콘 -->
             <ImageView
                 android:id="@+id/image_like"
                 android:layout_width="20dp"
@@ -70,6 +75,7 @@
                 android:clickable="true"
                 android:focusable="true" />
 
+            <!-- 좋아요 수 텍스트 -->
             <TextView
                 android:id="@+id/text_like_count"
                 android:layout_width="wrap_content"

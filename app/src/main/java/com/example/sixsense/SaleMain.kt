@@ -19,11 +19,13 @@ import data.entity.salespost.SalesPostDaoHelper
 
 class SaleMain : AppCompatActivity() {
 
+    // RecyclerView, Adapter, DB helper, 전체 게시글 리스트 선언
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SalesPostAdapter
     private lateinit var daoHelper: SalesPostDaoHelper
     private lateinit var allPosts: List<SalesPost>
 
+    // DB 비어 있을 때 초기 데이터로 넣을 샘플 게시글 5개
     private val samplePosts = listOf(
         SalesPost(
             restaurantId = "고씨네 카레 서울여대점",
@@ -71,14 +73,17 @@ class SaleMain : AppCompatActivity() {
 
         )
     )
+    // 글쓰기 결과를 받기 위한 런처
     private lateinit var writeLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sales_main)
 
+        // 글 작성 후 결과 수신 처리
         writeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {
+                // 새 글이 추가되었을 때 RecyclerView 갱신
                 val newPosts = daoHelper.getAllSalesPosts()
                 adapter.items.clear()
                 adapter.items.addAll(newPosts)
@@ -87,17 +92,17 @@ class SaleMain : AppCompatActivity() {
             }
         }
 
-
+        // 글쓰기 버튼
         val btnWritePost: FloatingActionButton = findViewById(R.id.btn_write_post)
-
+        // 글쓰기 액티비티로 이동
         btnWritePost.setOnClickListener {
             val intent = Intent(this, SaleWriteActivity::class.java)
             writeLauncher.launch(intent)
         }
+
+        // RecyclerView 설정
         recyclerView = findViewById(R.id.recycler_sales_posts)
         recyclerView.layoutManager = LinearLayoutManager(this)
-
-        daoHelper = SalesPostDaoHelper(this)
 
         // 중복 방지: DB 비어 있을 때만 샘플 삽입
         if (daoHelper.getAllSalesPosts().isEmpty()) {
@@ -112,27 +117,30 @@ class SaleMain : AppCompatActivity() {
         adapter = SalesPostAdapter(postList.toMutableList())
         recyclerView.adapter = adapter
 
+        // 검색창과 검색 결과 없을 때 메시지 뷰
         val editSearch = findViewById<EditText>(R.id.edit_search)
         val textEmptyResult = findViewById<TextView>(R.id.text_empty_result)
 
-        allPosts = daoHelper.getAllSalesPosts()  // 전역 리스트 저장
+        allPosts = daoHelper.getAllSalesPosts()     // 전체 게시글 리스트 저장
         adapter = SalesPostAdapter(allPosts.toMutableList())
         recyclerView.adapter = adapter
 
+        // 검색 입력에 대한 반응 설정
         editSearch.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                val keyword = s.toString().replace(" ", "")
+                val keyword = s.toString().replace(" ", "")     // 입력한 키워드를 공백 제거 후 필터링
                 val filtered = allPosts.filter {
                     it.restaurantId.replace(" ", "").contains(keyword, ignoreCase = true) ||
                             it.title.replace(" ", "").contains(keyword, ignoreCase = true) ||
                             it.content.replace(" ", "").contains(keyword, ignoreCase = true)
                 }
 
-
+                // 어댑터에 필터링된 리스트 적용
                 adapter.items.clear()
                 adapter.items.addAll(filtered)
                 adapter.notifyDataSetChanged()
 
+                // 검색 결과 없을 시 안내 메시지 표시
                 textEmptyResult.visibility = if (filtered.isEmpty()) View.VISIBLE else View.GONE
             }
 

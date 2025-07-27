@@ -2,6 +2,7 @@ package com.example.sixsense
 
 import android.net.Uri
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ class SaleInfo : AppCompatActivity() {
         val imgPhoto = findViewById<ImageView>(R.id.imgPhoto)
         val imageLike = findViewById<ImageView>(R.id.image_like)
         val textLikeCount = findViewById<TextView>(R.id.text_like_count)
+        val txtTitle = findViewById<TextView>(R.id.txtPostTitle)
 
         // 인텐트로부터 데이터 받기
         val restaurantName = intent.getStringExtra("restaurantName")
@@ -29,31 +31,35 @@ class SaleInfo : AppCompatActivity() {
         val imageUri = intent.getStringExtra("imageUri")
         val imageResId = intent.getIntExtra("imageResId", -1)
         var currentLikeCount = intent.getIntExtra("likeCount", 0)
+        val postTitle = intent.getStringExtra("title")
 
-        // 텍스트 데이터 적용
+        // 텍스트 데이터 화면에 표시
+        txtTitle.text = postTitle
         txtRestaurantName.text = restaurantName
         txtWriter.text = writerId
         txtTime.text = time
         txtContent.text = content
         textLikeCount.text = "$currentLikeCount"
 
-        // 이미지 적용
+        // 이미지 표시 (Uri > 리소스 ID > 기본 이미지 없음)
         when {
-            !imageUri.isNullOrEmpty() -> {
+            !imageUri.isNullOrEmpty() -> {              // 사용자 선택 이미지 (Uri 기반)
+                imgPhoto.visibility = View.VISIBLE
                 Glide.with(this)
                     .load(Uri.parse(imageUri))
-                    .error(R.drawable.placeholder_image)
                     .into(imgPhoto)
             }
             imageResId > 0 -> {
-                imgPhoto.setImageResource(imageResId)
+                imgPhoto.visibility = View.VISIBLE
+                imgPhoto.setImageResource(imageResId)          // 기본 샘플 이미지 (drawable 리소스)
             }
             else -> {
-                imgPhoto.setImageResource(R.drawable.placeholder_image)
+                imgPhoto.visibility = View.GONE         // 이미지가 없을 경우 감춤
+
             }
         }
 
-        // 좋아요 버튼
+        // 좋아요 버튼 클릭 시 좋아요 수 증가
         imageLike.setOnClickListener {
             currentLikeCount += 1
             textLikeCount.text = "$currentLikeCount"
