@@ -3,7 +3,6 @@ package data.entity.salespost
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
-import android.util.Log
 import com.example.sixsense.data.sqlite.SalesPostDbHelper
 
 // SalesPost 테이블에 접근하는 DAO 역할 클래스

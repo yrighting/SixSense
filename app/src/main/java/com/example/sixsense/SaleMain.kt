@@ -80,6 +80,8 @@ class SaleMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sales_main)
 
+        daoHelper = SalesPostDaoHelper(this)
+
         // 글 작성 후 결과 수신 처리
         writeLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
             if (result.resultCode == RESULT_OK) {

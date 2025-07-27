@@ -28,6 +28,7 @@ class SalesPostDbHelper(context: Context) : SQLiteOpenHelper(
 
         // 테이블명 및 컬럼 상수 정의
         const val TABLE_NAME = "sales_posts"
+        const val COLUMN_ID = "postId"
         const val COLUMN_RESTAURANT_ID = "restaurantId"
         const val COLUMN_ALIAS_ID = "aliasId"
         const val COLUMN_TITLE = "title"
@@ -39,7 +40,7 @@ class SalesPostDbHelper(context: Context) : SQLiteOpenHelper(
         // 테이블 생성 SQL
         private const val SQL_CREATE_ENTRIES =
             """CREATE TABLE $TABLE_NAME (
-                INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COLUMN_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COLUMN_RESTAURANT_ID TEXT,
                 $COLUMN_ALIAS_ID TEXT,
                 $COLUMN_TITLE TEXT,

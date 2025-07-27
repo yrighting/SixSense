@@ -1,13 +1,11 @@
 package com.example.sixsense
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import data.entity.salespost.SalesPost
 import java.text.SimpleDateFormat
 import java.util.*
@@ -23,7 +21,6 @@ class SalesPostAdapter(
         val title: TextView = itemView.findViewById(R.id.text_item_title)
         val textTime: TextView = itemView.findViewById(R.id.text_item_time)
         val textLikeCount: TextView = itemView.findViewById(R.id.text_like_count)
-        val imageLike: ImageView = itemView.findViewById(R.id.image_like)
     }
 
     // ViewHolder 생성
