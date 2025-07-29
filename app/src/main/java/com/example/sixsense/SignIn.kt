@@ -34,25 +34,32 @@ class SignIn : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            val cursor = sqlDB.rawQuery(
-                "SELECT gName FROM groupTBL WHERE gID = ? AND gPass = ?",
-                arrayOf(id, pw)
-            )
+            Thread {
+                val cursor = sqlDB.rawQuery(
+                    "SELECT gName FROM groupTBL WHERE gID = ? AND gPass = ?",
+                    arrayOf(id, pw)
+                )
 
-            if (cursor.moveToFirst()) {
-                val userName = cursor.getString(0)
-                cursor.close()
+                if (cursor.moveToFirst()) {
+                    val userName = cursor.getString(0)
+                    cursor.close()
 
-                val intent = Intent(this, MainActivity::class.java).apply {
-                    putExtra("userId", id)
-                    putExtra("userName", userName)
+                    // UI 작업은 runOnUiThread에서
+                    runOnUiThread {
+                        val intent = Intent(this, MainActivity::class.java).apply {
+                            putExtra("userId", id)
+                            putExtra("userName", userName)
+                        }
+                        startActivity(intent)
+                        finish()
+                    }
+                } else {
+                    cursor.close()
+                    runOnUiThread {
+                        showToast("아이디 또는 비밀번호가 올바르지 않습니다.")
+                    }
                 }
-                startActivity(intent)
-                finish()
-            } else {
-                cursor.close()
-                showToast("아이디 또는 비밀번호가 올바르지 않습니다.")
-            }
+            }.start()
         }
 
         btnSignUp.setOnClickListener {

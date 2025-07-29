@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
-import com.sixsense.app.com.example.sixsense.CreateParty
+import com.sixsense.app.PartyListActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         btnParty.setOnClickListener {
-            val intent = Intent(this, CreateParty::class.java)
+            val intent = Intent(this, PartyListActivity::class.java)
             startActivity(intent)
         }
 

@@ -5,6 +5,10 @@ import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.sixsense.app.data.entity.*
 import com.sixsense.app.data.dao.*
+import data.entity.party.Participation
+import data.entity.party.PartyComment
+import data.entity.party.PartyDao
+import data.entity.party.PartyPost
 import kotlinx.coroutines.*
 import data.entity.salespost.SalesPost
 import data.entity.salespost.SalesPostDao
@@ -12,15 +16,16 @@ import data.entity.salespost.SalesPostTagCrossRef
 
 
 @Database(
-    entities = [Restaurant::class, Review::class, Tag::class, RestaurantTagCrossRef::class, SalesPost::class, SalesPostTagCrossRef::class],
-    version = 1
-)
+    entities = [Restaurant::class, Review::class, Tag::class, RestaurantTagCrossRef::class, SalesPost::class, SalesPostTagCrossRef::class, PartyPost::class, PartyComment::class, Participation::class],
+    version = 2, exportSchema = false)
+
 abstract class SixsenseDatabase : RoomDatabase() {
 
     abstract fun restaurantDao(): RestaurantDao
     abstract fun reviewDao(): ReviewDao
     abstract fun salesPostDao(): SalesPostDao
     abstract fun tagDao(): TagDao
+    abstract fun partyDao(): PartyDao
 
 
     companion object {
@@ -33,6 +38,7 @@ abstract class SixsenseDatabase : RoomDatabase() {
                     SixsenseDatabase::class.java,
                     "sixsense_database"
                 )
+                    .fallbackToDestructiveMigration() // ✅ 배포 시에는 만드시 이 줄 제거 후, .addMigration()으로 마이그레이션 명시해야 함!
                     .addCallback(DatabaseCallback())
                     .build()
                 INSTANCE = instance

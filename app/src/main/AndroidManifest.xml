@@ -44,6 +44,10 @@
         <activity android:name=".SaleInfo" android:exported="false" />
         <activity android:name=".SaleWriteActivity" android:exported="false" />
         <activity android:name=".SaleMain" android:exported="false" />
+        <activity android:name=".MapSelectActivity" android:exported="false" />
+        <activity android:name=".PartyListActivity" android:exported="false" />
+        <activity android:name=".CreateParty" android:exported="false" />
+        <activity android:name=".PartyDetailActivity" android:exported="false" />
 
     </application>
 

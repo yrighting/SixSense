@@ -1,4 +1,4 @@
-package com.example.sixsense
+package com.sixsense.app
 
 import android.content.Context
 import android.net.Uri

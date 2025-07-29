@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">SixSense</string>
     <string name="search_button">검색</string>
+    <!-- res/values/strings.xml -->
+    <string-array name="sort_options">
+        <item>최신순</item>
+        <item>이름순</item>
+        <item>인원순</item>
+    </string-array>
+
 </resources>

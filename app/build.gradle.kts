@@ -49,6 +49,7 @@ dependencies {
 
     // Room (yejin 기준)
     implementation("androidx.room:room-runtime:2.6.1")
+    implementation(libs.androidx.recyclerview)
     kapt("androidx.room:room-compiler:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
 
@@ -67,4 +68,14 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    //RecyclerView 라이브러리 추가
+    implementation("androidx.recyclerview:recyclerview:1.3.0")
+
+    // 코루틴 기본 라이브러리
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+
+    // 안드로이드에서 UI 스레드 접근에 필요한 라이브러리
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
 }

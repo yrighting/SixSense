@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.sixsense.SaleWriteActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sixsense.app.data.entity.SixsenseDatabase
 import data.entity.salespost.SalesPost
