@@ -1,4 +1,5 @@
-import android.annotation.SuppressLint
+package com.sixsense.app
+
 import android.content.Context
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -8,90 +9,104 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.sixsense.R
-import com.example.sixsense.SignIn
 
 class SignUpActivity : AppCompatActivity() {
-    lateinit var edtName: EditText
-    lateinit var edtId: EditText
-    lateinit var edtPw: EditText
-    lateinit var edtPwCheck: EditText
-    lateinit var btnSign: Button
-    lateinit var dbManager: DBManager
-    lateinit var sqlDB: SQLiteDatabase
 
-    @SuppressLint("MissingInflatedId")
+    private lateinit var edtName: EditText
+    private lateinit var edtId: EditText
+    private lateinit var edtPw: EditText
+    private lateinit var edtPwCheck: EditText
+    private lateinit var btnSign: Button
+    private lateinit var btnCancel: Button
+
+    private lateinit var dbManager: DBManager
+    private lateinit var sqlDB: SQLiteDatabase
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        initViews()
+        dbManager = DBManager(this, "groupTBL", null, 1)
+
+        btnSign.setOnClickListener {
+            handleSignUp()
+        }
+
+        btnCancel.setOnClickListener {
+            val intent = Intent(this, SignIn::class.java)
+            startActivity(intent)
+            finish()
+        }
+    }
+
+    private fun initViews() {
         edtName = findViewById(R.id.edtName)
         edtId = findViewById(R.id.edtId)
         edtPw = findViewById(R.id.edtPw)
         edtPwCheck = findViewById(R.id.edtPwCheck)
         btnSign = findViewById(R.id.btnSign)
+        btnCancel = findViewById(R.id.btnCancel)
+    }
 
-        dbManager = DBManager(this, "groupTBL", null, 1)
+    private fun handleSignUp() {
+        val name = edtName.text.toString().trim()
+        val id = edtId.text.toString().trim()
+        val pw = edtPw.text.toString()
+        val pwCheck = edtPwCheck.text.toString()
 
-        btnSign.setOnClickListener {
-            val name = edtName.text.toString()
-            val id = edtId.text.toString()
-            val pw = edtPw.text.toString()
-            val pwCheck = edtPwCheck.text.toString()
-
-            if (name.isBlank() || id.isBlank() || pw.isBlank() || pwCheck.isBlank()) {
-                showToast("이름, 아이디와 비밀번호를 모두 입력해주세요.")
-                return@setOnClickListener
+        when {
+            name.isEmpty() || id.isEmpty() || pw.isEmpty() || pwCheck.isEmpty() -> {
+                showToast("모든 항목을 입력해주세요.")
+                return
             }
-
-            if (name.length < 2) {
+            name.length < 2 -> {
                 showToast("이름을 2자리 이상 입력하세요.")
-                return@setOnClickListener
+                return
             }
-
-            if (id.length < 6) {
+            id.length < 6 -> {
                 showToast("아이디를 6자리 이상 입력하세요.")
-                return@setOnClickListener
+                return
             }
-
-            if (pw.length < 6) {
+            pw.length < 6 -> {
                 showToast("비밀번호를 6자리 이상 입력하세요.")
-                return@setOnClickListener
+                return
             }
-
-            if (pw != pwCheck) {
-                showToast("비밀번호가 다릅니다. 다시 입력하세요.")
-                return@setOnClickListener
+            pw != pwCheck -> {
+                showToast("비밀번호가 일치하지 않습니다.")
+                return
             }
-
-            sqlDB = dbManager.writableDatabase
-
-            val nameCursor = sqlDB.rawQuery("SELECT gName FROM groupTBL WHERE gName=?", arrayOf(name))
-            if (nameCursor.moveToFirst()) {
-                showToast("이미 사용 중인 닉네임입니다.")
-                nameCursor.close()
-                return@setOnClickListener
-            }
-            nameCursor.close()
-
-            val idCursor = sqlDB.rawQuery("SELECT gID FROM groupTBL WHERE gID=?", arrayOf(id))
-            if (idCursor.moveToFirst()) {
-                showToast("이미 사용 중인 아이디입니다.")
-                idCursor.close()
-                return@setOnClickListener
-            }
-            idCursor.close()
-
-            sqlDB.execSQL("INSERT INTO groupTBL VALUES (?, ?, ?)", arrayOf(name, id, pw))
-            sqlDB.close()
-
-            showToast("회원가입이 완료되었습니다.")
-            startActivity(Intent(this, SignIn::class.java))
         }
+
+        sqlDB = dbManager.writableDatabase
+
+        if (isDuplicate("gName", name)) {
+            showToast("이미 사용 중인 닉네임입니다.")
+            return
+        }
+
+        if (isDuplicate("gID", id)) {
+            showToast("이미 사용 중인 아이디입니다.")
+            return
+        }
+
+        sqlDB.execSQL("INSERT INTO groupTBL VALUES (?, ?, ?)", arrayOf(name, id, pw))
+        sqlDB.close()
+
+        showToast("회원가입이 완료되었습니다.")
+        startActivity(Intent(this, SignIn::class.java))
+        finish()
+    }
+
+    private fun isDuplicate(field: String, value: String): Boolean {
+        val cursor = sqlDB.rawQuery("SELECT $field FROM groupTBL WHERE $field=?", arrayOf(value))
+        val exists = cursor.moveToFirst()
+        cursor.close()
+        return exists
     }
 
     private fun showToast(message: String) {
-        Toast.makeText(applicationContext, message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     class DBManager(
@@ -102,13 +117,15 @@ class SignUpActivity : AppCompatActivity() {
     ) : SQLiteOpenHelper(context, name, factory, version) {
 
         override fun onCreate(db: SQLiteDatabase?) {
-            db?.execSQL("""
+            db?.execSQL(
+                """
                 CREATE TABLE IF NOT EXISTS groupTBL (
-                    gName CHAR(20) NOT NULL,
-                    gID CHAR(30) NOT NULL,
-                    gPass CHAR(30) NOT NULL
+                    gName TEXT NOT NULL,
+                    gID TEXT NOT NULL,
+                    gPass TEXT NOT NULL
                 )
-            """.trimIndent())
+                """.trimIndent()
+            )
         }
 
         override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {

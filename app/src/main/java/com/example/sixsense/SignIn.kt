@@ -1,4 +1,4 @@
-package com.example.sixsense
+package com.sixsense.app
 
 import android.content.Intent
 import android.database.sqlite.SQLiteDatabase
@@ -17,7 +17,8 @@ class SignIn : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        val btnSignIn = findViewById<Button>(R.id.btnSignUpTo)
+        val btnSignUp = findViewById<Button>(R.id.btnSignUpTo)
+        val btnSignIn = findViewById<Button>(R.id.btnSignIn)
         val edtId = findViewById<EditText>(R.id.edtSignInId)
         val edtPw = findViewById<EditText>(R.id.edtSignInPw)
 
@@ -52,6 +53,11 @@ class SignIn : AppCompatActivity() {
                 cursor.close()
                 showToast("아이디 또는 비밀번호가 올바르지 않습니다.")
             }
+        }
+
+        btnSignUp.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 
