@@ -69,6 +69,17 @@
             android:textSize="16sp"
             android:paddingBottom="12dp" />
 
+        <LinearLayout
+            android:id="@+id/tagContainer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="start"
+            android:padding="8dp" />
+
+
         <!-- 좋아요 영역 (하트 아이콘 + 숫자) -->
         <LinearLayout
             android:id="@+id/like_section"

@@ -1,12 +1,20 @@
 package com.example.sixsense
 
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.sixsense.app.data.entity.SixsenseDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class SaleInfo : AppCompatActivity() {
@@ -64,6 +72,34 @@ class SaleInfo : AppCompatActivity() {
             currentLikeCount += 1
             textLikeCount.text = "$currentLikeCount"
         }
+
+        // 태그 보여주기
+        val tagContainer = findViewById<LinearLayout>(R.id.tagContainer)
+        val postId = intent.getIntExtra("postId", -1)
+        if (postId != -1) {
+            val db = SixsenseDatabase.getDatabase(applicationContext)
+            val dao = db.salesPostDao()
+
+            // 코루틴으로 Room 접근
+            CoroutineScope(Dispatchers.IO).launch {
+                val postWithTags = dao.getSalesPostWithTags(postId)
+
+                withContext(Dispatchers.Main) {
+                    tagContainer.removeAllViews()
+                    for (tag in postWithTags.tags) {
+                        val tagView = TextView(this@SaleInfo).apply {
+                            text = "#${tag.tagName}"
+                            setPadding(24, 12, 24, 12)
+                            background = ContextCompat.getDrawable(context, R.drawable.tag_background)
+                            setTextColor(Color.BLACK)
+                            textSize = 12f
+                        }
+                        tagContainer.addView(tagView)
+                    }
+                }
+            }
+        }
+
     }
 
 }

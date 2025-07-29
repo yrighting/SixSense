@@ -46,6 +46,7 @@ class SalesPostAdapter(
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
             val intent = android.content.Intent(context, com.example.sixsense.SaleInfo::class.java).apply {
+                putExtra("postId", post.postId)
                 putExtra("title", post.title)
                 putExtra("restaurantName", getRestaurantName(post.restaurantId))
                 putExtra("writerId", post.aliasId)
