@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView android:id="@+id/tv_title" android:textSize="20sp" android:textStyle="bold"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+
+        <TextView android:id="@+id/tv_content"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingTop="8dp" />
+
+        <TextView android:id="@+id/tv_location"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingTop="8dp" />
+
+        <TextView android:id="@+id/tv_datetime"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingTop="4dp" />
+
+        <TextView android:id="@+id/tv_people"
+            android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingTop="4dp" />
+
+        <Button
+            android:id="@+id/btn_join"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FD6F22"
+            android:text="참여하기" />
+
+        <TextView android:text="댓글" android:textSize="16sp" android:textStyle="bold"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="20dp" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_comment"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+
+        <EditText
+            android:id="@+id/input_comment"
+            android:hint="댓글 입력"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <Button
+            android:id="@+id/btn_add_comment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#FD6F22"
+            android:text="댓글 등록" />
+    </LinearLayout>
+</ScrollView>

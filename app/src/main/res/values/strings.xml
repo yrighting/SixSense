@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">SixSense</string>
+    <string name="search_button">검색</string>
+
+    <string-array name="sort_options">
+        <item>최신순</item>
+        <item>이름순</item>
+        <item>인원순</item>
+    </string-array>
+
+    <string-array name="category_array">
+        <item>전체</item>
+        <item>한식</item>
+        <item>중식</item>
+        <item>양식</item>
+        <item>일식</item>
+        <item>카페</item>
+        <item>술집</item>
+        <item>기타</item>
+    </string-array>
+</resources>

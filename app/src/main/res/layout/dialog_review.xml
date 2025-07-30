@@ -1,0 +1,52 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="평점: "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"/>
+
+    <TextView
+        android:id="@+id/textTrust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="신뢰도: "
+        android:layout_marginBottom="8dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerReviews"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginBottom="16dp" />
+
+    <RatingBar
+        android:id="@+id/ratingInput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="0.5"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
+        android:id="@+id/editNewReview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="리뷰를 입력하세요"
+        android:layout_marginBottom="8dp"/>
+
+    <EditText
+        android:id="@+id/editTags"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="태그란 (예: #가성비 #혼밥)"
+        android:layout_marginBottom="8dp"/>
+
+
+</LinearLayout>
