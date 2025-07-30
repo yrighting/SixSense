@@ -1,0 +1,12 @@
+package com.sixsense.app.com.example.sixsense
+
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import com.sixsense.app.R
+
+class CreateParty : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_create_party) // 이 이름이 XML 파일과 정확히 일치해야 해!
+    }
+}
