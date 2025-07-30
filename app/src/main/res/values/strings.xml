@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">SixSense</string>
+    <string-array name="category_array">
+        <item>전체</item>
+        <item>한식</item>
+        <item>중식</item>
+        <item>양식</item>
+        <item>일식</item>
+        <item>카페</item>
+        <item>술집</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>
