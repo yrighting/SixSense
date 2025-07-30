@@ -1,4 +1,4 @@
-package com.sixsense.app
+package com.example.sixsense
 
 import android.content.Context
 import android.net.Uri
@@ -8,9 +8,9 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.sixsense.R
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
-import com.sixsense.app.R
 import com.sixsense.app.data.entity.SixsenseDatabase
 import com.sixsense.app.data.entity.TagDao
 import data.entity.salespost.SalesPost

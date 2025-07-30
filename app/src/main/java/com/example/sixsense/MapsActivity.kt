@@ -1,10 +1,11 @@
-package com.sixsense.app
+package com.example.sixsense
 
 import android.widget.Spinner
 import android.view.View
 import android.widget.AdapterView
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.EditText
 import android.widget.RatingBar
@@ -18,6 +19,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
+import com.sixsense.app.Restaurant
+import com.sixsense.app.Review
+import com.sixsense.app.ReviewAdapter
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -47,9 +51,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
+        Log.d("MAP_READY", "onMapReady 진입함")
         map = googleMap
         val swu = LatLng(37.6294, 127.0906)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(swu, 15f))
+
+        val lat = intent.getDoubleExtra("latitude", 0.0)
+        val lng = intent.getDoubleExtra("longitude", 0.0)
+        val name = intent.getStringExtra("restaurantName")
+
+        if (lat != 0.0 && lng != 0.0 && name != null) {
+            val target = LatLng(lat, lng)
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(target, 17f))
+            map.addMarker(
+                MarkerOptions()
+                    .position(target)
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            )
+        }
 
         allRestaurants.addAll(
             listOf(

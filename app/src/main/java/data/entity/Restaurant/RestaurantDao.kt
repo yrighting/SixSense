@@ -1,6 +1,7 @@
 package com.sixsense.app.data.dao
 
 import androidx.room.*
+import com.example.sixsense.data.entity.Restaurant.Restaurant
 import com.sixsense.app.data.entity.*
 
 @Dao
@@ -22,4 +23,5 @@ interface RestaurantDao {
     @Transaction
     @Query("SELECT * FROM restaurants WHERE id = :restaurantId")
     suspend fun getRestaurantDetail(restaurantId: Int): RestaurantWithTags
+
 }

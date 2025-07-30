@@ -3,6 +3,7 @@ package com.sixsense.app.data.entity
 import android.content.Context
 import androidx.room.*
 import androidx.sqlite.db.SupportSQLiteDatabase
+import com.example.sixsense.data.entity.Restaurant.Restaurant
 import com.sixsense.app.data.entity.*
 import com.sixsense.app.data.dao.*
 import kotlinx.coroutines.*

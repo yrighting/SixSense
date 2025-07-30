@@ -2,6 +2,7 @@ package com.sixsense.app
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sixsense.R
 
 class CreateParty : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

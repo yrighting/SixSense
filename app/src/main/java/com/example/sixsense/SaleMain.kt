@@ -1,4 +1,4 @@
-package com.sixsense.app
+package com.example.sixsense
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,8 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.sixsense.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.sixsense.app.R
 import com.sixsense.app.data.entity.SixsenseDatabase
 import data.entity.salespost.SalesPost
 import data.entity.salespost.SalesPostDao
@@ -25,7 +25,7 @@ class SaleMain : AppCompatActivity() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: SalesPostAdapter
     private lateinit var salesPostDao: SalesPostDao
-    private lateinit var allPosts: List<SalesPost>
+    private var allPosts: List<SalesPost> = listOf()
 
     private lateinit var writeLauncher: androidx.activity.result.ActivityResultLauncher<Intent>
 
