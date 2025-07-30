@@ -1,10 +1,7 @@
-package com.sixsense.app.data.entity
+package com.sixsense.app
 
-import androidx.room.*
 
-@Entity(tableName = "reviews")
 data class Review(
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val text: String,
     val tags: List<String> = emptyList(),
     val userName: String = "익명",
