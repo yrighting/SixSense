@@ -25,7 +25,7 @@
         <!-- Google 지도 API 키 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="AIzaSyBqP0wLEGC2hIFQDHiTRQ2Oetkuqnqdvrk" />
 
         <!-- 런처 액티비티: SignIn 기준 유지 -->
         <activity
