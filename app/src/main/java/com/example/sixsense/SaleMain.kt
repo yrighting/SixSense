@@ -28,7 +28,7 @@ class SaleMain : AppCompatActivity() {
 
     private lateinit var writeLauncher: androidx.activity.result.ActivityResultLauncher<Intent>
 
-    // ✅ 예진 원본 샘플데이터 그대로 사용
+    // 샘플데이터 그대로 사용
     private val samplePosts = listOf(
         SalesPost(
             restaurantId = "고씨네 카레 서울여대점",
