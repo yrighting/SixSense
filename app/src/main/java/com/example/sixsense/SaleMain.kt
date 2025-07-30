@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.sixsense.app.data.entity.SixsenseDatabase
 import data.entity.salespost.SalesPost
 import data.entity.salespost.SalesPostDao
+import data.entity.salespost.SalesPostTagCrossRef
 import kotlinx.coroutines.launch
 
 class SaleMain : AppCompatActivity() {
@@ -31,6 +32,7 @@ class SaleMain : AppCompatActivity() {
     // 샘플 게시글 리스트
     private val samplePosts = listOf(
         SalesPost(
+            postId = 0,
             restaurantId = "고씨네 카레 서울여대점",
             aliasId = "익명1",
             title = "고씨네 카레 신메뉴 20% 할인 이벤트",
@@ -39,6 +41,7 @@ class SaleMain : AppCompatActivity() {
             imageResId = R.drawable.sample1
         ),
         SalesPost(
+            postId = 0,
             restaurantId = "화랑대곱창",
             aliasId = "익명2",
             title = "혼밥 세트 10% 할인 이벤트",
@@ -47,6 +50,7 @@ class SaleMain : AppCompatActivity() {
             imageResId = R.drawable.sample2
         ),
         SalesPost(
+            postId = 0,
             restaurantId = "육회란 연어다 본점",
             aliasId = "익명3",
             title = "육회·연어 세트 이벤트",
@@ -55,6 +59,7 @@ class SaleMain : AppCompatActivity() {
             imageResId = R.drawable.sample3
         ),
         SalesPost(
+            postId = 0,
             restaurantId = "피자얌",
             aliasId = "익명4",
             title = "반반피자 20% 할인 이벤트",
@@ -63,6 +68,7 @@ class SaleMain : AppCompatActivity() {
             imageResId = R.drawable.sample4
         ),
         SalesPost(
+            postId = 0,
             restaurantId = "카페인중독 노원점",
             aliasId = "익명5",
             title = "생크림 와플 1+1 이벤트",
@@ -70,7 +76,9 @@ class SaleMain : AppCompatActivity() {
             timestamp = 1753433800000,
             imageResId = R.drawable.sample5
         )
+
     )
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -126,10 +134,31 @@ class SaleMain : AppCompatActivity() {
             allPosts = salesPostDao.getAllSalesPosts()
 
             if (allPosts.isEmpty()) {
-                samplePosts.forEach {
-                    salesPostDao.insert(it)
+                val db = SixsenseDatabase.getDatabase(applicationContext)
+                val salesPostDao = db.salesPostDao()
+
+                val tagMapping = mapOf(
+                    0 to listOf(1, 2, 5), // 글 1번
+                    1 to listOf(3, 4),    // 글 2번
+                    2 to listOf(1, 2, 5), // 글 3번
+                    3 to listOf(1, 5),    // 글 4번
+                    4 to listOf(1)        // 글 5번
+                )
+
+                val insertedList = mutableListOf<SalesPost>()
+
+                for ((index, post) in samplePosts.withIndex()) {
+                    val postWithoutId = post.copy(postId = 0) // autoGenerate
+                    val postId = salesPostDao.insert(postWithoutId).toInt()
+
+                    val tagIds = tagMapping[index] ?: emptyList()
+                    tagIds.forEach { tagId ->
+                        salesPostDao.insertSalesPostTagCrossRef(SalesPostTagCrossRef(postId, tagId))
+                    }
                 }
-                allPosts = salesPostDao.getAllSalesPosts()
+
+                allPosts = insertedList
+
             }
 
             adapter.items.clear()
@@ -137,4 +166,5 @@ class SaleMain : AppCompatActivity() {
             adapter.notifyDataSetChanged()
         }
     }
+
 }

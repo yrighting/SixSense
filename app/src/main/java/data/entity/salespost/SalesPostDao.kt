@@ -16,4 +16,9 @@ interface SalesPostDao {
     @Transaction
     @Query("SELECT * FROM sales_posts WHERE postId = :postId")
     suspend fun getSalesPostWithTags(postId: Int): SalesPostWithTags
+
+    @Transaction
+    @Query("SELECT * FROM sales_posts ORDER BY timestamp DESC")
+    suspend fun getAllSalesPostsWithTags(): List<SalesPostWithTags>
+
 }

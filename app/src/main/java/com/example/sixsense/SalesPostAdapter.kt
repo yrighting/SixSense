@@ -53,9 +53,12 @@ class SalesPostAdapter(
                 putExtra("content", post.content)
                 putExtra("likeCount", post.likeCount)
                 putExtra("imageResId", post.imageResId)
+
                 if (post.imageUri != null) {
                     putExtra("imageUri", post.imageUri)
                 }
+                putExtra("latitude", post.latitude ?: 0.0)
+                putExtra("longitude", post.longitude ?: 0.0)
             }
             context.startActivity(intent)
         }

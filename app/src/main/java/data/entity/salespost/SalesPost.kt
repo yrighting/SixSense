@@ -1,5 +1,6 @@
 package data.entity.salespost
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -13,5 +14,13 @@ data class SalesPost(
     val timestamp: Long,
     val likeCount: Int = 0,
     val imageResId: Int? = null,
-    val imageUri: String? = null
+    val imageUri: String? = null,
+
+    @ColumnInfo(name = "latitude")
+    val latitude: Double? = null,
+
+    @ColumnInfo(name = "longitude")
+    val longitude: Double? = null
 )
+
+

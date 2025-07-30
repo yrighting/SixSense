@@ -1,6 +1,7 @@
 package com.sixsense.app
 
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.*
@@ -27,9 +28,15 @@ class SaleWriteActivity : AppCompatActivity() {
     private lateinit var editRestaurant: EditText
     private lateinit var editTitle: EditText
     private lateinit var editContent: EditText
+    private lateinit var editAliasId: EditText
     private lateinit var imagePreview: ImageView
     private lateinit var btnSelectImage: Button
     private lateinit var btnSubmit: Button
+
+    private lateinit var btnSelectLocation: Button
+    private lateinit var textSelectedLocation: TextView
+    private var selectedLatitude: Double? = null
+    private var selectedLongitude: Double? = null
 
     private var selectedImageUri: Uri? = null
 
@@ -60,10 +67,13 @@ class SaleWriteActivity : AppCompatActivity() {
         editRestaurant = findViewById(R.id.edit_restaurant_name)
         editTitle = findViewById(R.id.edit_title)
         editContent = findViewById(R.id.edit_content)
+        editAliasId = findViewById(R.id.edit_alias_id)
         imagePreview = findViewById(R.id.image_preview)
         btnSelectImage = findViewById(R.id.btn_select_image)
         btnSubmit = findViewById(R.id.btn_submit_post)
         chipGroup = findViewById(R.id.tagChipGroup)
+        btnSelectLocation = findViewById(R.id.btn_select_location)
+        textSelectedLocation = findViewById(R.id.text_selected_location)
 
         tagDao = SixsenseDatabase.getDatabase(applicationContext).tagDao()
 
@@ -86,6 +96,26 @@ class SaleWriteActivity : AppCompatActivity() {
             )
         }
 
+        val locationSelectLauncher =
+            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+                if (result.resultCode == RESULT_OK) {
+                    val lat = result.data?.getDoubleExtra("latitude", 0.0)
+                    val lng = result.data?.getDoubleExtra("longitude", 0.0)
+
+                    if (lat != null && lng != null) {
+                        selectedLatitude = lat
+                        selectedLongitude = lng
+                        textSelectedLocation.text = "선택된 위치: $lat, $lng"
+                    }
+                }
+            }
+
+        btnSelectLocation.setOnClickListener {
+            val intent = Intent(this, MapSelectActivity::class.java)
+            intent.putExtra("restaurantName", editRestaurant.text.toString())
+            locationSelectLauncher.launch(intent)
+        }
+
         btnSubmit.setOnClickListener {
             savePost()
         }
@@ -95,7 +125,7 @@ class SaleWriteActivity : AppCompatActivity() {
         val restaurant = editRestaurant.text.toString()
         val title = editTitle.text.toString()
         val content = editContent.text.toString()
-        val alias = findViewById<EditText>(R.id.edit_alias_id).text.toString()
+        val alias = editAliasId.text.toString()
 
         if (restaurant.isBlank() || title.isBlank() || content.isBlank()) {
             Toast.makeText(this, "모든 항목을 입력해주세요", Toast.LENGTH_SHORT).show()
@@ -108,7 +138,9 @@ class SaleWriteActivity : AppCompatActivity() {
             title = title,
             content = content,
             timestamp = System.currentTimeMillis(),
-            imageUri = selectedImageUri?.toString()
+            imageUri = selectedImageUri?.toString(),
+            latitude = selectedLatitude,
+            longitude = selectedLongitude
         )
 
         lifecycleScope.launch {
@@ -131,7 +163,13 @@ class SaleWriteActivity : AppCompatActivity() {
             }
 
             Toast.makeText(this@SaleWriteActivity, "게시글이 등록되었습니다", Toast.LENGTH_SHORT).show()
-            setResult(RESULT_OK)
+
+            val resultIntent = Intent().apply {
+                putExtra("latitude", selectedLatitude ?: 0.0)
+                putExtra("longitude", selectedLongitude ?: 0.0)
+                setResult(RESULT_OK)
+            }
+
             finish()
         }
     }

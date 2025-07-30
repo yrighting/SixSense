@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -80,26 +81,42 @@ class SaleInfo : AppCompatActivity() {
         buttonViewLocation.setOnClickListener {
             val name = restaurantName ?: return@setOnClickListener
 
-            val restaurantList = listOf(
-                Restaurant("고씨네 카레 서울여대점", 37.625000, 127.089358, category = "카레"),
-                Restaurant("화랑대곱창", 37.622502, 127.083423, category = "곱창"),
-                Restaurant("육회란 연어다 본점", 37.626467, 127.088065, category = "육회"),
-                Restaurant("피자얌", 37.623650, 127.091204, category = "피자"),
-                Restaurant("카페인중독 노원점", 37.626206, 127.092402, category = "카페")
-            )
+            val lat = intent.getDoubleExtra("latitude", 0.0)
+            val lng = intent.getDoubleExtra("longitude", 0.0)
 
-
-            val restaurant = restaurantList.find { it.name == name }
-
-            if (restaurant != null) {
+            if (lat != 0.0 && lng != 0.0) {
+                // 사용자가 고른 위치 정보가 있을 경우
                 val intent = Intent(this, MapsActivity::class.java).apply {
-                    putExtra("restaurantName", restaurant.name)
-                    putExtra("latitude", restaurant.latitude)
-                    putExtra("longitude", restaurant.longitude)
+                    putExtra("restaurantName", name)
+                    putExtra("latitude", lat)
+                    putExtra("longitude", lng)
                 }
                 startActivity(intent)
+            } else {
+                // 위치 정보가 없으면 샘플 데이터에서 찾기
+                val restaurantList = listOf(
+                    Restaurant("고씨네 카레 서울여대점", 37.625000, 127.089358, category = "카레"),
+                    Restaurant("화랑대곱창", 37.622502, 127.083423, category = "곱창"),
+                    Restaurant("육회란 연어다 본점", 37.626467, 127.088065, category = "육회"),
+                    Restaurant("피자얌", 37.623650, 127.091204, category = "피자"),
+                    Restaurant("카페인중독 노원점", 37.626206, 127.092402, category = "카페")
+                )
+
+                val restaurant = restaurantList.find { it.name == name }
+
+                if (restaurant != null) {
+                    val intent = Intent(this, MapsActivity::class.java).apply {
+                        putExtra("restaurantName", restaurant.name)
+                        putExtra("latitude", restaurant.latitude)
+                        putExtra("longitude", restaurant.longitude)
+                    }
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(this, "위치 정보가 없습니다", Toast.LENGTH_SHORT).show()
+                }
             }
         }
+
 
         // 태그 보여주기
         val tagContainer = findViewById<LinearLayout>(R.id.tagContainer)
@@ -121,6 +138,10 @@ class SaleInfo : AppCompatActivity() {
                             background = ContextCompat.getDrawable(context, R.drawable.tag_background)
                             setTextColor(Color.BLACK)
                             textSize = 12f
+                            layoutParams = LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT
+                            )
                         }
                         tagContainer.addView(tagView)
                     }
