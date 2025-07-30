@@ -51,7 +51,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        Log.d("MAP_READY", "onMapReady 진입함")
         map = googleMap
         val swu = LatLng(37.6294, 127.0906)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(swu, 15f))
