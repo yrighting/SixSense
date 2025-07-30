@@ -70,6 +70,13 @@
             android:textSize="16sp"
             android:paddingBottom="12dp" />
 
+        <Button
+            android:id="@+id/buttonViewLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange"
+            android:text="위치 보기" />
+
         <!-- 태그 컨테이너 -->
         <LinearLayout
             android:id="@+id/tagContainer"

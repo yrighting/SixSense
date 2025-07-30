@@ -51,6 +51,21 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val swu = LatLng(37.6294, 127.0906)
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(swu, 15f))
 
+        val lat = intent.getDoubleExtra("latitude", 0.0)
+        val lng = intent.getDoubleExtra("longitude", 0.0)
+        val name = intent.getStringExtra("restaurantName")
+
+        if (lat != 0.0 && lng != 0.0 && name != null) {
+            val target = LatLng(lat, lng)
+            map.animateCamera(CameraUpdateFactory.newLatLngZoom(target, 17f))
+            map.addMarker(
+                MarkerOptions()
+                    .position(target)
+                    .title(name)
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED))
+            )
+        }
+
         allRestaurants.addAll(
             listOf(
                 Restaurant(
