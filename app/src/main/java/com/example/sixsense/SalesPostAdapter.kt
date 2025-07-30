@@ -1,4 +1,4 @@
-package com.example.sixsense
+package com.sixsense.app
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.sixsense.app.R
 import data.entity.salespost.SalesPost
 import java.text.SimpleDateFormat
 import java.util.*
@@ -45,7 +46,7 @@ class SalesPostAdapter(
         // 아이템 클릭 시 상세화면(SaleInfo)으로 이동 + 데이터 전달
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
-            val intent = android.content.Intent(context, com.example.sixsense.SaleInfo::class.java).apply {
+            val intent = android.content.Intent(context, com.sixsense.app.SaleInfo::class.java).apply {
                 putExtra("postId", post.postId)
                 putExtra("title", post.title)
                 putExtra("restaurantName", getRestaurantName(post.restaurantId))

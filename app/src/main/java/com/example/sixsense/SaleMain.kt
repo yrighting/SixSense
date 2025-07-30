@@ -1,4 +1,4 @@
-package com.example.sixsense
+package com.sixsense.app
 
 import android.content.Intent
 import android.os.Bundle
@@ -14,6 +14,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.sixsense.app.R
 import com.sixsense.app.data.entity.SixsenseDatabase
 import data.entity.salespost.SalesPost
 import data.entity.salespost.SalesPostDao
