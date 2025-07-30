@@ -62,7 +62,7 @@ class SaleInfo : AppCompatActivity() {
                 imgPhoto.setImageResource(imageResId)          // 기본 샘플 이미지 (drawable 리소스)
             }
             else -> {
-                imgPhoto.visibility = View.GONE         // 이미지가 없을 경우 감춤
+                imgPhoto.visibility = View. GONE         // 이미지가 없을 경우 감춤
 
             }
         }
